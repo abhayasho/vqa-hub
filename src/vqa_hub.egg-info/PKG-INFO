@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: vqa-hub
+Version: 0.2.0
+Summary: Hub-and-unit multimodal framework for VQA research
+Author: Your Name
+Requires-Python: >=3.9

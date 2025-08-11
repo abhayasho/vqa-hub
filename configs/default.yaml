@@ -1,0 +1,17 @@
+
+seed: 42
+device: null   # null lets Transformers choose; you can try "mps" on Apple or an int GPU id
+router:
+  use_big_fallback: false
+  complex_cues: ["why", "how", "explain", "reason", "because"]
+  prefer_direct_vqa: true        # try a small VQA head first for plain photos
+  ocr_text_min_chars: 12         # if OCR finds >= this many chars, include in fusion
+models:
+  captioner: "Salesforce/blip-image-captioning-base"
+  textgen: "distilgpt2"
+  vqa: "Salesforce/blip-vqa-base"
+  ocr: "microsoft/trocr-base-printed"
+  big_fallback: "llama3"         # for Ollama (optional)
+limits:
+  caption_max_new_tokens: 30
+  textgen_max_new_tokens: 80

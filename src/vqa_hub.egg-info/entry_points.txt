@@ -1,0 +1,2 @@
+[console_scripts]
+vqa = vqa_hub.pipelines.vqa_pipeline:cli_entry
