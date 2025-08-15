@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 import argparse, yaml, json
 from vqa_hub.router import Router
@@ -11,6 +10,8 @@ from vqa_hub.units.text.gpt2_textgen import TextGenerator
 from vqa_hub.units.fusion_simple import SimpleVQAFusion
 from vqa_hub.hub import Hub
 from transformers import pipeline as hf_pipeline
+from vqa_hub.units.text.qa_small import ExtractiveQA
+from vqa_hub.units.fusion_qa import FusionQA
 
 def run_once(image: str, question: str, config_path: str):
     with open(config_path, "r") as f:
@@ -29,6 +30,10 @@ def run_once(image: str, question: str, config_path: str):
     textgen = TextGenerator(txt_pipe, models.get("textgen", "distilgpt2"),
                             max_new_tokens=limits.get("textgen_max_new_tokens", 80))
     fusion = SimpleVQAFusion(text_model=textgen)
+
+    # Extractive QA fusion (uses OCR+caption as context)
+    qa_unit = ExtractiveQA(device=device)
+    fusion_qa = FusionQA(qa_model=qa_unit)
 
     # Direct VQA
     vqa_model_name = models.get("vqa", "Salesforce/blip-vqa-base")
@@ -60,7 +65,8 @@ def run_once(image: str, question: str, config_path: str):
               vqa_unit=vqa_unit,
               ocr_unit=ocr_unit,
               big_model=big_model,
-              ocr_text_min_chars=ocr_text_min_chars)
+              ocr_text_min_chars=ocr_text_min_chars,
+              fusion_qa=fusion_qa)
 
     result = hub.run_vqa(image_path=image, question=question)
 

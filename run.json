@@ -1,0 +1,40 @@
+{
+  "image": "demo.jpg",
+  "question": "Read the text on the image and describe what's happening.",
+  "router": {
+    "decision": "caption -> ocr -> fusion -> maybe_big",
+    "reason": "text-reading query"
+  },
+  "steps": [
+    {
+      "unit": "captioner:Salesforce/blip-image-captioning-base",
+      "output": {
+        "caption": "a cat with its mouth open and it's saying when someone tells me i have to many books",
+        "raw": [
+          {
+            "generated_text": "a cat with its mouth open and it's saying when someone tells me i have to many books"
+          }
+        ]
+      }
+    },
+    {
+      "unit": "ocr:microsoft/trocr-base-printed",
+      "output": {
+        "text": "***",
+        "raw": [
+          {
+            "generated_text": "***"
+          }
+        ]
+      }
+    },
+    {
+      "unit": "fusion:extractive_qa",
+      "output": {
+        "answer_text": "***",
+        "score": 0.13950011134147644,
+        "context": "Caption: a cat with its mouth open and it's saying when someone tells me i have to many books  On-image text: ***"
+      }
+    }
+  ]
+}

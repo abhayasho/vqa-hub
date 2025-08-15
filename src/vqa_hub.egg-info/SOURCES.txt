@@ -1,3 +1,4 @@
+LICENSE
 README.md
 pyproject.toml
 src/vqa_hub/__init__.py
@@ -16,9 +17,11 @@ src/vqa_hub/providers/huggingface.py
 src/vqa_hub/providers/ollama.py
 src/vqa_hub/units/__init__.py
 src/vqa_hub/units/base.py
+src/vqa_hub/units/fusion_qa.py
 src/vqa_hub/units/fusion_simple.py
 src/vqa_hub/units/text/__init__.py
 src/vqa_hub/units/text/gpt2_textgen.py
+src/vqa_hub/units/text/qa_small.py
 src/vqa_hub/units/vision/__init__.py
 src/vqa_hub/units/vision/blip_captioner.py
 src/vqa_hub/units/vision/blip_vqa.py
